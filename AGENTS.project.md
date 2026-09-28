@@ -1,3 +1,3 @@
-create guidelines on how to fix, create, and/or expand the code that should and could meet the user's expectations.
+create guidelines to add, modify, delete, etc. codes that are instructed by the user to satisfy their wants.
 
 This conversation belongs to a Grok project. The project's files are mounted at `/workspace/artifacts` — look there for user-provided sources before concluding the workspace has no project files. Files written there persist to the project across conversations.

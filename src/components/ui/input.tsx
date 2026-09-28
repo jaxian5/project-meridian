@@ -1,13 +1,12 @@
-import type { InputHTMLAttributes, LabelHTMLAttributes, ReactNode } from "react";
-import { cn } from "@/lib/cn";
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
-export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input
+      type={type}
       className={cn(
-        "h-10 w-full min-w-0 rounded-lg border border-border bg-surface-2 px-3 text-sm text-fg placeholder:text-fg-subtle",
-        "focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring",
-        "disabled:opacity-50",
+        "h-12 w-full rounded-md bg-cream px-4 text-base text-ink shadow-[var(--shadow-border)] outline-none transition-[box-shadow,background-color] duration-150 ease-out placeholder:text-faint focus-visible:shadow-[0_0_0_2px_var(--color-pine)]",
         className,
       )}
       {...props}
@@ -15,23 +14,4 @@ export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElem
   );
 }
 
-export function Label({ className, ...props }: LabelHTMLAttributes<HTMLLabelElement>) {
-  return <label className={cn("grid gap-1.5 text-sm font-medium text-fg", className)} {...props} />;
-}
-
-export function Field({
-  label,
-  className,
-  children,
-}: {
-  label: string;
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <label className={cn("grid gap-1.5 text-sm font-medium text-fg", className)}>
-      {label}
-      {children}
-    </label>
-  );
-}
+export { Input };

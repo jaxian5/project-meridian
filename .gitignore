@@ -1,0 +1,14 @@
+node_modules
+.vercel
+.output
+.nitro
+.tanstack
+.wrangler
+dist
+screenshots
+artifacts
+*.log
+/tmp
+.grok/og-pending
+.grok/preview.log
+.DS_Store

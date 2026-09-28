@@ -12,8 +12,9 @@ var install_page_default = "<!DOCTYPE html>\n<html lang=\"en\" class=\"device-de
 //#endregion
 //#region \0virtual:grok-og-identity
 var grokOgIdentity = { "site": {
-	"title": "Tindahan",
-	"color": "1F5C4E"
+	"title": "Skibitech LLC",
+	"card": "custom",
+	"image": "/og.jpg"
 } };
 //#endregion
 //#region scripts/grok-pwa-shared.mjs
