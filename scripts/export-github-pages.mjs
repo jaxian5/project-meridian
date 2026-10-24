@@ -208,7 +208,7 @@ const SITE_JS = `(() => {
         `What this is about: ${String(data.engagement).trim()}`,
         "",
         String(data.message).trim(),
-      ].join("\\n");
+      ].join("\n");
       const draft = document.createElement("a");
       draft.href = `mailto:hello@skibitech.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       draft.className = "mt-4 inline-flex text-sm font-medium text-ink underline underline-offset-4";
