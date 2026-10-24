@@ -64,6 +64,12 @@
       const email=details?.[2]?.querySelector("a");
       if(email&&member.email){email.textContent=member.email;email.href="mailto:"+member.email;}
     }
+    const biography = document.querySelector("[data-member-bio]");
+    if (biography && Array.isArray(member.bio)) {
+      biography.innerHTML = member.bio.map(paragraph =>
+        '<div class="reveal reveal-in"><p class="text-base leading-relaxed text-muted">' +
+        escape(paragraph) + '</p></div>').join("");
+    }
     const oldNext=document.querySelector('a.group.mt-4.grid[href*="/members/"]');
     if(oldNext)oldNext.outerHTML=nextCard(next);
   });
