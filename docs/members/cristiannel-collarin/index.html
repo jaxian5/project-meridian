@@ -36,6 +36,8 @@
         name="apple-mobile-web-app-status-bar-style"
         content="black"
     >
+  <script defer src="../../assets/members-data.js"></script>
+  <script defer src="../../assets/members-render.js"></script>
 </head>
 
 <body class="bg-paper text-ink">
@@ -348,7 +350,7 @@
                         <p class="text-xs tracking-widest text-faint uppercase">About</p>
                         <h2 class="font-display mt-3 text-3xl text-ink">The work</h2>
                     </div>
-                    <div class="space-y-5 md:col-span-7 md:col-start-6">
+                    <div data-member-bio class="space-y-5 md:col-span-7 md:col-start-6">
                         <div class="reveal reveal-in" style="transition-delay:0ms">
                             <p class="text-base leading-relaxed text-muted">Cristiannel co-founded Skibitech LLC with Raymond and Ahron John. He shapes how the studio takes work and how the team ships it.</p>
                         </div>
@@ -360,8 +362,8 @@
                 <div class="reveal mt-16 border-t border-line pt-12 reveal-in" style="transition-delay:0ms">
                     <p class="text-xs tracking-widest text-faint uppercase">Next</p>
                     <a href="../../members/mark-ian-gabriel-lara/" class="group mt-4 grid items-center gap-6 sm:grid-cols-[8rem_minmax(0,1fr)_auto]">
-                        <div class="overflow-hidden bg-surface aspect-4/5 max-w-32 rounded-md grid place-items-center">
-                            <span class="font-display text-2xl text-muted" aria-hidden="true">ML</span>
+                        <div class="overflow-hidden bg-surface aspect-4/5 max-w-32 rounded-md">
+                            <img src="../../images/member_gabriel.jpg" alt="Portrait of Mark Ian Gabriel Lara" loading="lazy" decoding="async" class="img-frame h-full w-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
                         </div>
                         <div>
                             <h2 class="font-display text-3xl text-ink">Mark Ian Gabriel Lara</h2>

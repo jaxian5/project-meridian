@@ -58,6 +58,8 @@
         name="apple-mobile-web-app-status-bar-style"
         content="black"
     >
+  <script defer src="./assets/members-data.js"></script>
+  <script defer src="./assets/members-render.js"></script>
 </head>
 
 <body class="bg-paper text-ink">
@@ -375,7 +377,7 @@
                                 Company Members
                             </dt>
                             <dd class="font-display mt-1 text-3xl text-ink">
-                                12
+                                <span data-member-count>12</span>
                             </dd>
                         </div>
 
@@ -1193,7 +1195,7 @@
                         </p>
 
                         <h2 class="font-display mt-3 max-w-xl text-title text-ink">
-                            Twelve people. One thread.
+                            <span data-member-heading>Twelve people. One thread.</span>
                         </h2>
                     </div>
 
@@ -1222,7 +1224,7 @@
                     </a>
                 </div>
 
-                                <ul class="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+                                <ul data-member-list="home" class="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
 
                     <li>
                         <div
