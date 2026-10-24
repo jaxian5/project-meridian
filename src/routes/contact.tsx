@@ -24,8 +24,6 @@ const inquirySchema = z.object({
 type Inquiry = z.infer<typeof inquirySchema>;
 type FieldErrors = Partial<Record<keyof Inquiry, string>>;
 
-const STORAGE_KEY = "skibitech-inquiry";
-
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
@@ -78,7 +76,7 @@ function ContactPage() {
       `What this is about: ${inquiry.engagement}`,
       "",
       inquiry.message,
-    ].join("\\n");
+    ].join("\n");
     setDraftUrl(
       `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
     );
@@ -209,7 +207,7 @@ function ContactPage() {
                 />
               </Field>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Button type="submit" size="lg" >
+                <Button type="submit" size="lg">
                   Prepare email draft
                 </Button>
                 <p className="text-xs text-faint">
