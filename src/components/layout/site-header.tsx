@@ -94,6 +94,8 @@ export function SiteHeader() {
         <nav
           className="flex flex-col gap-1 border-t border-line px-6 py-8"
           aria-label="Mobile"
+          aria-hidden={!open}
+          inert={!open}
         >
           {NAV.map((item, i) => (
             <Link
