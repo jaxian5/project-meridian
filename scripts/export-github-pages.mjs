@@ -162,6 +162,8 @@ const SITE_JS = `(() => {
     panel.classList.toggle("opacity-0", !open);
     panel.classList.toggle("max-h-[100dvh]", open);
     panel.classList.toggle("opacity-100", open);
+    panel.inert = !open;
+    panel.setAttribute("aria-hidden", open ? "false" : "true");
     setIcon(menuIcon, !open);
     setIcon(closeIcon, open);
     document.body.style.overflow = open ? "hidden" : "";
@@ -171,6 +173,7 @@ const SITE_JS = `(() => {
   btn?.addEventListener("click", () => {
     setOpen(btn.getAttribute("aria-expanded") !== "true");
   });
+  setOpen(btn?.getAttribute("aria-expanded") === "true");
 
   const form = document.querySelector("form");
   if (form && form.querySelector("#message")) {
@@ -197,10 +200,30 @@ const SITE_JS = `(() => {
         }
         return;
       }
-      const first = String(data.name).trim().split(/\\s+/)[0];
+      const subject = `Project inquiry from ${String(data.name).trim()} (${String(data.company).trim()})`;
+      const body = [
+        `Name: ${String(data.name).trim()}`,
+        `Email: ${String(data.email).trim()}`,
+        `Company: ${String(data.company).trim()}`,
+        `What this is about: ${String(data.engagement).trim()}`,
+        "",
+        String(data.message).trim(),
+      ].join("\\n");
+      const draft = document.createElement("a");
+      draft.href = `mailto:hello@skibitech.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      draft.className = "mt-4 inline-flex text-sm font-medium text-ink underline underline-offset-4";
+      draft.textContent = "Open email draft";
+
       const box = document.createElement("div");
-      box.className = "rounded-xl bg-surface px-6 py-10 md:px-10";
-      box.innerHTML = '<p class="text-sm tracking-wide text-muted uppercase">Received</p><h2 class="font-display mt-3 text-3xl text-ink">Thank you, ' + first + '.</h2><p class="mt-4 max-w-narrow text-base leading-relaxed text-muted">We have your note about ' + String(data.company) + ". A partner will write to " + String(data.email) + " within a few working days.</p>";
+      box.className = "rounded-xl bg-surface px-6 py-6 md:px-8";
+      box.setAttribute("role", "status");
+      const heading = document.createElement("h2");
+      heading.className = "font-display text-2xl text-ink";
+      heading.textContent = "Your email draft is ready.";
+      const message = document.createElement("p");
+      message.className = "mt-2 text-sm leading-relaxed text-muted";
+      message.textContent = "Review the message in your email app and press Send. Skibitech has not received it yet.";
+      box.append(heading, message, draft);
       form.replaceWith(box);
     });
   }
