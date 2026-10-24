@@ -241,18 +241,3 @@ function Field({
     </div>
   );
 }
-
-function readInquiry(): Inquiry | null {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = inquirySchema.safeParse(JSON.parse(raw));
-    return parsed.success ? parsed.data : null;
-  } catch {
-    return null;
-  }
-}
-
-function writeInquiry(inquiry: Inquiry) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(inquiry));
-}
