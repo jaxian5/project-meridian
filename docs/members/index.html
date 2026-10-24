@@ -17,7 +17,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
         <meta name="apple-mobile-web-app-title" content="Skibitech LLC">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    </head>
+      <script defer src="../assets/members-data.js"></script>
+  <script defer src="../assets/members-render.js"></script>
+</head>
     <body class="bg-paper text-ink">
         <div class="paper-grain flex min-h-dvh min-w-0 flex-col bg-paper text-ink">
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:bg-pine focus:px-4 focus:py-2 focus:text-paper">Skip to content</a>
@@ -63,16 +65,16 @@
                     <div class="mt-8 grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] md:items-end">
                         <div class="reveal reveal-in" style="transition-delay:80ms">
                             <div class="max-w-narrow text-lede text-muted">
-                                Twelve people. One thread. The studio is small on purpose: the person who sits with an operator is the person who ships the system. Here they are, with the work they take.
+                                <span data-member-heading>Twelve people. One thread.</span> The studio is small on purpose: the person who sits with an operator is the person who ships the system. Here they are, with the work they take.
                             </div>
                         </div>
                         <div class="reveal text-sm text-muted md:text-right reveal-in" style="transition-delay:140ms">
-<span>12 <!-- --> members<br />Mariveles, and remote</span>
+<span><span data-member-count>12</span> members<br />Mariveles, and remote</span>
                         </div>
                     </div>
                 </section>
                 <section class="mx-auto w-full max-w-wide px-6 pb-20 md:px-10 md:pb-28">
-                    <ul class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+                    <ul data-member-list="directory" class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
 
     <!-- Ahron John Taguba -->
     <li>
