@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { SiteShell } from "@/components/layout/site-shell";
@@ -24,8 +24,6 @@ const inquirySchema = z.object({
 type Inquiry = z.infer<typeof inquirySchema>;
 type FieldErrors = Partial<Record<keyof Inquiry, string>>;
 
-const STORAGE_KEY = "skibitech-inquiry";
-
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
@@ -41,13 +39,8 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const [sent, setSent] = useState<Inquiry | null>(null);
+  const [draftUrl, setDraftUrl] = useState<string | null>(null);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    setSent(readInquiry());
-  }, []);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -69,15 +62,24 @@ function ContactPage() {
         }
       }
       setErrors(next);
+      setDraftUrl(null);
       return;
     }
+
     setErrors({});
-    setSubmitting(true);
-    window.setTimeout(() => {
-      writeInquiry(parsed.data);
-      setSent(parsed.data);
-      setSubmitting(false);
-    }, 400);
+    const inquiry = parsed.data;
+    const subject = `Project inquiry from ${inquiry.name} (${inquiry.company})`;
+    const body = [
+      `Name: ${inquiry.name}`,
+      `Email: ${inquiry.email}`,
+      `Company: ${inquiry.company}`,
+      `What this is about: ${inquiry.engagement}`,
+      "",
+      inquiry.message,
+    ].join("\n");
+    setDraftUrl(
+      `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+    );
   }
 
   return (
@@ -122,32 +124,28 @@ function ContactPage() {
           </p>
         </div>
         <div className="md:col-span-8">
-          {sent ? (
-            <div className="rounded-xl bg-surface px-6 py-10 md:px-10">
-              <p className="text-sm tracking-wide text-muted uppercase">
-                Received
-              </p>
-              <h2 className="font-display mt-3 text-3xl text-ink">
-                Thank you, {sent.name.split(" ")[0]}.
-              </h2>
-              <p className="mt-4 max-w-narrow text-base leading-relaxed text-muted">
-                We have your note about {sent.company}. A partner will write to{" "}
-                {sent.email} within a few working days. If the work is not a
-                fit, we will say so plainly.
-              </p>
-              <Button
-                type="button"
-                variant="outline"
-                className="mt-8"
-                onClick={() => {
-                  window.localStorage.removeItem(STORAGE_KEY);
-                  setSent(null);
-                }}
+          <>
+            {draftUrl ? (
+              <div
+                role="status"
+                className="mb-6 rounded-xl bg-surface px-6 py-6 md:px-8"
               >
-                Send another note
-              </Button>
-            </div>
-          ) : (
+                <h2 className="font-display text-2xl text-ink">
+                  Your email draft is ready.
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  Review the message in your email app and press Send. Skibitech
+                  has not received it yet.
+                </p>
+                <a
+                  href={draftUrl}
+                  className="mt-4 inline-flex text-sm font-medium text-ink underline underline-offset-4"
+                >
+                  Open email draft
+                </a>
+              </div>
+            ) : null}
+
             <form onSubmit={onSubmit} className="grid gap-5" noValidate>
               <Field label="Name" htmlFor="name" error={errors.name}>
                 <Input
@@ -209,15 +207,15 @@ function ContactPage() {
                 />
               </Field>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Button type="submit" size="lg" disabled={submitting}>
-                  {submitting ? "Sending…" : "Send to the studio"}
+                <Button type="submit" size="lg">
+                  Prepare email draft
                 </Button>
                 <p className="text-xs text-faint">
-                  No mailing list. Your note stays with the partners.
+                  Your note is not sent until you press Send in your email app.
                 </p>
               </div>
             </form>
-          )}
+          </>
         </div>
       </section>
     </SiteShell>
@@ -242,19 +240,4 @@ function Field({
       {error ? <p className="text-sm text-pine">{error}</p> : null}
     </div>
   );
-}
-
-function readInquiry(): Inquiry | null {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = inquirySchema.safeParse(JSON.parse(raw));
-    return parsed.success ? parsed.data : null;
-  } catch {
-    return null;
-  }
-}
-
-function writeInquiry(inquiry: Inquiry) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(inquiry));
 }

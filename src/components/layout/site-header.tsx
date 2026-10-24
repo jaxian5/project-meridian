@@ -86,6 +86,8 @@ export function SiteHeader() {
       </div>
 
       <div
+        aria-hidden={!open}
+        inert={!open}
         className={cn(
           "overflow-hidden transition-[max-height,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden",
           open ? "max-h-[100dvh] opacity-100" : "max-h-0 opacity-0",
